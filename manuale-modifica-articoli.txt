@@ -1,0 +1,94 @@
+# Manuale per la Modifica degli Articoli - Coccibelli
+
+Questo documento spiega come modificare, aggiungere o rimuovere articoli dal catalogo Coccibelli.
+
+## Struttura dei Dati
+
+I dati dei prodotti sono memorizzati nel file `db.json` nella sezione `/products`. Ogni prodotto ha la seguente struttura:
+
+```json
+{
+  "id": 1,
+  "name": "Nome del Prodotto",
+  "description": "Descrizione dettagliata del prodotto",
+  "price": 25,
+  "category": "collane",
+  "imageUrl": "URL dell'immagine",
+  "stock": 5
+}
+```
+
+### Categorie disponibili:
+- collane
+- anelli
+- orecchini
+- accessori
+
+## Modifica tramite Dashboard Admin
+
+Il modo più semplice per gestire i prodotti è utilizzare la dashboard di amministrazione:
+
+1. Accedi all'applicazione con le credenziali admin:
+   - Email: admin@coccibelli.com
+   - Password: admin123
+
+2. Vai alla pagina Admin dalla barra di navigazione
+
+3. Nella dashboard admin potrai:
+   - Visualizzare tutti i prodotti esistenti
+   - Aggiungere nuovi prodotti tramite il form in alto
+   - Modificare prodotti esistenti cliccando su "Modifica"
+   - Eliminare prodotti cliccando su "Elimina"
+
+## Modifica Manuale dei Dati
+
+Se preferisci modificare direttamente i dati:
+
+1. Apri il file `db.json` alla radice del progetto
+
+2. Modifica la sezione "products" seguendo questa struttura:
+   ```json
+   "products": [
+     {
+       "id": numero_incrementale,
+       "name": "Nome Prodotto",
+       "description": "Descrizione dettagliata",
+       "price": prezzo_in_euro,
+       "category": "categoria",
+       "imageUrl": "URL_immagine",
+       "stock": quantità_disponibile
+     },
+     ...
+   ]
+   ```
+
+3. Salva il file e riavvia il server JSON se necessario:
+   ```
+   npm run server
+   ```
+
+## Linee Guida per le Immagini
+
+- Utilizza immagini di dimensioni coerenti (idealmente 1200x800px)
+- Assicurati che lo sfondo sia neutro e che il prodotto sia ben visibile
+- Preferisci immagini con il prodotto centrato
+- Usa URL di immagini stabili (es. da un servizio di hosting immagini)
+
+## Regole per le Descrizioni
+
+- Lunghezza ideale: 100-200 caratteri
+- Includi informazioni su:
+  - Materiali utilizzati
+  - Colori predominanti
+  - Caratteristiche uniche
+  - Dimensioni approssimative
+
+## File di Riferimento nel Codice
+
+- Componenti UI per i prodotti:
+  - `src/components/ProductCard.jsx`: Card che mostra l'anteprima del prodotto
+  - `src/pages/ProductDetailPage.jsx`: Pagina di dettaglio del prodotto
+
+- Gestione dati:
+  - `src/store/products/productsSlice.js`: Logica Redux per gestire i prodotti
+  - `src/pages/AdminDashboardPage.jsx`: Interfaccia di amministrazione

@@ -1,0 +1,74 @@
+# Manuale di Installazione - Coccibelli
+
+Segui queste istruzioni per installare e avviare il progetto Coccibelli, un e-commerce di bijoux artigianali realizzati con frammenti di porcellana.
+
+## Requisiti
+
+- Node.js (v14.0.0 o superiore)
+- npm (v6.0.0 o superiore)
+
+## Passi per l'installazione
+
+1. Crea un nuovo progetto React con Vite:
+   ```
+   npm create vite@latest coccibelli -- --template react
+   ```
+
+2. Entra nella directory del progetto:
+   ```
+   cd coccibelli
+   ```
+
+3. Installa le dipendenze necessarie:
+   ```
+   npm install bootstrap react-toastify redux react-redux @reduxjs/toolkit react-router-dom json-server
+   ```
+
+4. Aggiungi gli script necessari al file package.json:
+   ```json
+   "scripts": {
+     "dev": "vite",
+     "build": "vite build",
+     "lint": "eslint .",
+     "preview": "vite preview",
+     "server": "json-server --watch db.json --port 3001"
+   }
+   ```
+
+5. Importa Bootstrap in main.jsx:
+   ```javascript
+   import 'bootstrap/dist/css/bootstrap.min.css'
+   ```
+
+6. Avvia il server di sviluppo:
+   ```
+   npm run dev
+   ```
+
+7. In un'altra finestra del terminale, avvia il server JSON:
+   ```
+   npm run server
+   ```
+
+## Struttura del Progetto
+
+Il progetto è strutturato nel seguente modo:
+
+- `/src`: Contiene tutti i file sorgente
+  - `/components`: Componenti riutilizzabili
+  - `/pages`: Pagine dell'applicazione
+  - `/store`: Configurazione di Redux e slice
+  - `/assets`: Immagini e altri asset
+- `db.json`: Database JSON per il backend
+
+## Credenziali Demo
+
+Per testare l'applicazione, puoi utilizzare le seguenti credenziali:
+
+- **Admin**:
+  - Email: admin@coccibelli.com
+  - Password: admin123
+
+- **Utente**:
+  - Email: user@example.com
+  - Password: user123

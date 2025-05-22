@@ -1,0 +1,66 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "anello1",
+      "description": "anello 1",
+      "price": 14,
+      "category": "anelli",
+      "imageUrl": "https://placehold.co/1200x800",
+      "stock": 1
+    },
+    {
+      "id": 2,
+      "name": "collana1",
+      "description": "collana1",
+      "price": 25,
+      "category": "collane",
+      "imageUrl": "https://placehold.co/400x400",
+      "stock": 1
+    },
+    {
+      "id": 3,
+      "name": "orecchini 1",
+      "description": "orecchini 1",
+      "price": 17,
+      "category": "orecchini",
+      "imageUrl": "https://placehold.co/400x400",
+      "stock": 1
+    },
+    {
+      "id": 4,
+      "name": "accessori",
+      "description": "prova",
+      "price": 1,
+      "category": "accessori",
+      "imageUrl": "https://placehold.co/400x400",
+      "stock": 1
+    },
+    {
+      "id": 5,
+      "name": "anello2",
+      "description": "anello di prova 2",
+      "price": 16,
+      "category": "anelli",
+      "imageUrl": "https://placehold.co/400x400",
+      "stock": 1
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@coccibelli.com",
+      "password": "admin123",
+      "name": "Admin",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "email": "user@example.com",
+      "password": "user123",
+      "name": "User Example",
+      "role": "user"
+    }
+  ],
+  "orders": []
+}
