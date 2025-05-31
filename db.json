@@ -15,7 +15,7 @@
       "description": "collana1",
       "price": 25,
       "category": "collane",
-      "imageUrl": "https://placehold.co/400x400",
+      "imageUrl": "https://placehold.co/1200x800",
       "stock": 1
     },
     {
@@ -24,7 +24,7 @@
       "description": "orecchini 1",
       "price": 17,
       "category": "orecchini",
-      "imageUrl": "https://placehold.co/400x400",
+      "imageUrl": "https://placehold.co/1200x800",
       "stock": 1
     },
     {
@@ -33,7 +33,7 @@
       "description": "prova",
       "price": 1,
       "category": "accessori",
-      "imageUrl": "https://placehold.co/400x400",
+      "imageUrl": "https://placehold.co/1200x800",
       "stock": 1
     },
     {
@@ -42,7 +42,7 @@
       "description": "anello di prova 2",
       "price": 16,
       "category": "anelli",
-      "imageUrl": "https://placehold.co/400x400",
+      "imageUrl": "https://placehold.co/1200x800",
       "stock": 1
     }
   ],
