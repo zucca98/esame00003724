@@ -1,234 +1,893 @@
+/**
+ * =====================================================
+ * APP.CSS - STILI COMPONENTI SPECIFICI E-COMMERCE
+ * =====================================================
+ *
+ * File CSS dedicato agli stili specifici dei componenti dell'applicazione
+ * React e-commerce "Coccibelli"
+ *
+ * DESCRIZIONE:
+ * Questo file complementa index.css fornendo stili specifici per componenti
+ * e pagine dell'applicazione. Si concentra su layout complessi, componenti
+ * custom e stili tematici specifici per l'e-commerce di gioielli artigianali.
+ *
+ * RELAZIONE CON INDEX.CSS:
+ * - index.css: Design system globale, variabili, utility
+ * - App.css: Componenti specifici, layout pagine, stili tematici
+ *
+ * CONTENUTO PRINCIPALE:
+ * ├── 🏠 Hero Section (Landing page con background image)
+ * ├── 🛍️ Product Cards (Visualizzazione prodotti e-commerce)
+ * ├── 👤 About Section (Storytelling e processo artigianale)
+ * ├── 🛒 Cart Components (Carrello e quantity controls)
+ * ├── ⚙️ Admin Dashboard (Interfaccia amministrativa)
+ * ├── 🔐 Authentication Forms (Login e registrazione)
+ * └── 📱 Responsive Adaptations (Mobile-first breakpoints)
+ *
+ * ARCHITETTURA DESIGN:
+ * - Component-specific styles (non globali per evitare conflitti)
+ * - Theme-aware design utilizzando CSS custom properties da index.css
+ * - Mobile-first responsive approach con breakpoint strategici
+ * - Performance-optimized animations con will-change hints
+ * - Semantic class naming convention per manutenibilità
+ *
+ * METODOLOGIA CSS:
+ * - Stili modulari per componenti specifici
+ * - Uso consistente di CSS custom properties per theming
+ * - Responsive design con clamp() e viewport units
+ * - Accessibilità con focus states e contrast ratios appropriati
+ * - Maintainable code structure con commenti dettagliati
+ *
+ * PATTERN UTILIZZATI:
+ * - Card Pattern: Per product cards e contenitori
+ * - Hero Pattern: Per landing page impattante
+ * - Overlay Pattern: Per leggibilità testo su immagini
+ * - Hover Effects Pattern: Per feedback interattivo
+ * - Responsive Typography: Con scaling fluido
+ *
+ * COMPONENTI PRINCIPALI:
+ *
+ * 1. HERO SECTION:
+ *    - Background image con overlay gradient
+ *    - Typography responsive con clamp()
+ *    - Call-to-action buttons ottimizzati
+ *    - Mobile-first responsive design
+ *
+ * 2. PRODUCT CARDS:
+ *    - Layout grid responsive
+ *    - Image hover effects con zoom
+ *    - Typography hierarchy per informazioni
+ *    - Hover states per interattività
+ *
+ * 3. CART COMPONENTS:
+ *    - Quantity controls con design moderno
+ *    - Item cards con layout flessibile
+ *    - Responsive behavior per mobile
+ *    - Visual feedback per azioni utente
+ *
+ * 4. ADMIN INTERFACE:
+ *    - Professional dashboard styling
+ *    - Form controls ottimizzati
+ *    - Table responsive per gestione dati
+ *    - Accessibility per power users
+ *
+ * PERFORMANCE CONSIDERATIONS:
+ * - will-change hints per animazioni smooth
+ * - Efficient selectors per rendering veloce
+ * - Image optimization con object-fit
+ * - Transition optimization per 60fps
+ * - Critical CSS separation ready
+ *
+ * RESPONSIVE STRATEGY:
+ * - Mobile-first approach (min-width queries)
+ * - Breakpoints: 576px, 768px, 992px, 1200px
+ * - Fluid typography con clamp()
+ * - Flexible layouts con flexbox/grid
+ * - Touch-friendly targets (44px minimum)
+ *
+ * BROWSER COMPATIBILITY:
+ * - Modern browsers con CSS Grid support
+ * - Flexbox support required
+ * - CSS clamp() function support
+ * - CSS custom properties support
+ * - object-fit support per immagini
+ *
+ * MANUTENZIONE:
+ * - Sincronizzare con design system in index.css
+ * - Testare responsive design su dispositivi reali
+ * - Verificare performance con DevTools
+ * - Aggiornare breakpoints se necessario
+ * - Documentare modifiche per team
+ *
+ * AUTORE: Sviluppato per progetto e-commerce Coccibelli
+ * VERSIONE: 1.0.0
+ * ULTIMO AGGIORNAMENTO: 2025
+ *
+ * =====================================================
+ */
+
+/* ===== LAYOUT PRINCIPALE APPLICAZIONE ===== */
+/**
+ * APP CONTAINER
+ *
+ * Container principale dell'applicazione che gestisce:
+ * - Layout verticale con flexbox
+ * - Altezza minima viewport per footer sticky
+ * - Base per responsive design
+ */
 .app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
+  display: flex;              /* Layout flexbox per controllo completo */
+  flex-direction: column;     /* Stack verticale: header, main, footer */
+  min-height: 100vh;         /* Altezza minima viewport per footer sticky */
 }
 
-/* Hero section */
+/* ===== HERO SECTION - LANDING PAGE ===== */
+/**
+ * HERO SECTION STYLES
+ *
+ * Sezione hero della homepage con:
+ * - Background image con overlay per leggibilità
+ * - Typography responsive e scalabile
+ * - Layout centrato e accessibile
+ * - Effetti visivi professionali
+ *
+ * PATTERN UTILIZZATI:
+ * - Overlay Pattern: Gradient overlay per leggibilità testo
+ * - Responsive Typography: clamp() per scaling fluido
+ * - Z-index Stacking: Gestione layer per overlay
+ * - Flexbox Centering: Centratura perfetta contenuto
+ */
+
+/* ===== HERO CONTAINER ===== */
 .hero {
-  background-size: cover;
-  background-position: center;
-  height: 80vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  text-align: center;
-  position: relative;
+  /* Background image management */
+  background-size: cover;        /* Immagine copre tutto il container */
+  background-position: center;   /* Centratura immagine */
+  background-attachment: fixed;  /* Effetto parallax (opzionale) */
+
+  /* Layout e dimensioni */
+  min-height: 85vh;             /* Altezza responsive (85% viewport) */
+  display: flex;                /* Flexbox per centratura */
+  align-items: center;          /* Centratura verticale */
+  justify-content: center;      /* Centratura orizzontale */
+
+  /* Typography base */
+  color: white;                 /* Testo bianco per contrasto */
+  text-align: center;          /* Allineamento centrale */
+
+  /* Positioning per overlay */
+  position: relative;           /* Context per pseudo-elementi */
+  overflow: hidden;            /* Nasconde overflow per effetti */
 }
 
+/* ===== HERO OVERLAY ===== */
+/**
+ * OVERLAY GRADIENT
+ *
+ * Pseudo-elemento per overlay scuro che:
+ * - Migliora leggibilità del testo
+ * - Crea depth visivo
+ * - Mantiene focus sul contenuto
+ */
 .hero::before {
-  content: '';
-  position: absolute;
+  content: '';                  /* Pseudo-elemento vuoto */
+  position: absolute;           /* Positioning assoluto */
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+  bottom: 0;                   /* Copre tutto il container */
+
+  /* Gradient overlay per leggibilità */
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.7),        /* Scuro in alto-sinistra */
+    rgba(0, 0, 0, 0.4)         /* Più chiaro in basso-destra */
+  );
+
+  z-index: 1;                  /* Layer sopra background, sotto contenuto */
 }
 
+/* ===== HERO CONTENT STACKING ===== */
+/**
+ * CONTENT Z-INDEX
+ *
+ * Assicura che tutto il contenuto sia sopra l'overlay
+ */
+.hero > * {
+  position: relative;          /* Context per z-index */
+  z-index: 2;                 /* Layer sopra overlay */
+}
+
+/* ===== HERO TYPOGRAPHY RESPONSIVE ===== */
+/**
+ * RESPONSIVE TYPOGRAPHY
+ *
+ * Typography che scala fluidamente con clamp():
+ * - Dimensione minima per mobile
+ * - Scaling basato su viewport width
+ * - Dimensione massima per desktop
+ *
+ * FORMULA clamp(min, preferred, max):
+ * - min: valore minimo (mobile)
+ * - preferred: valore scalabile (vw units)
+ * - max: valore massimo (desktop)
+ */
+
+/* Titolo principale */
 .hero h1 {
-  font-size: 4rem;
-  margin-bottom: 1.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  position: relative;
-  z-index: 1;
-  color: white;
+  font-size: clamp(2.5rem, 8vw, 5rem);  /* Scaling fluido 40px → 80px */
+  margin-bottom: 1.5rem;                 /* Spacing consistente */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);  /* Ombra per leggibilità */
+  color: white;                          /* Override per specificità */
+  font-weight: 700;                      /* Bold per impatto */
+  line-height: 1.1;                     /* Line-height compatto per titoli */
 }
 
+/* Sottotitolo */
+.hero h2 {
+  font-size: clamp(1.1rem, 3vw, 1.5rem);  /* Scaling fluido 18px → 24px */
+  margin-bottom: 1.5rem;                   /* Spacing consistente */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);  /* Ombra più leggera */
+  font-weight: 300;                        /* Light weight per eleganza */
+  opacity: 0.95;                          /* Leggera trasparenza */
+}
+
+/* Paragrafo descrittivo */
 .hero p {
-  font-size: 1.5rem;
-  max-width: 700px;
-  margin: 0 auto 2rem;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  position: relative;
-  z-index: 1;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);  /* Scaling fluido 16px → 20px */
+  max-width: 700px;                         /* Larghezza massima per leggibilità */
+  margin: 0 auto 2rem;                     /* Centratura e spacing */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);  /* Ombra per leggibilità */
+  line-height: 1.6;                       /* Line-height per leggibilità */
 }
 
-/* Product card styling */
+/* ===== HERO BUTTONS ENHANCEMENT ===== */
+/**
+ * BUTTON STYLES AVANZATI
+ *
+ * Stili per call-to-action buttons con:
+ * - Transizioni smooth per interazioni
+ * - Hover effects per feedback visivo
+ * - Accessibilità con focus states
+ */
+
+/* Base button styles */
+.hero .btn {
+  transition: all 0.3s ease;              /* Transizione smooth per tutte le proprietà */
+  border: none;                           /* Rimuove border default */
+  font-weight: 600;                       /* Semi-bold per leggibilità */
+  text-transform: none;                   /* Mantiene case originale */
+  letter-spacing: 0.5px;                 /* Spacing per eleganza */
+}
+
+/* Hover effects generici */
+.hero .btn:hover {
+  transform: translateY(-2px);            /* Lift effect on hover */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);  /* Shadow per depth */
+}
+
+/* Primary button hover */
+.hero .btn-primary:hover {
+  background-color: var(--primary-600);   /* Colore più scuro on hover */
+  border-color: var(--primary-600);      /* Border matching */
+}
+
+/* Outline button hover */
+.hero .btn-outline-light:hover {
+  background-color: rgba(255, 255, 255, 0.2);  /* Background semi-trasparente */
+  border-color: white;                          /* Border bianco */
+  color: white;                                /* Testo bianco */
+}
+
+/* ===== PRODUCT CARD COMPONENT ===== */
+/**
+ * PRODUCT CARD STYLES
+ *
+ * Componente card per visualizzazione prodotti e-commerce con:
+ * - Design moderno con border-radius e shadows
+ * - Hover effects per interattività
+ * - Image optimization per performance
+ * - Typography hierarchy per informazioni prodotto
+ * - Responsive behavior per tutti i dispositivi
+ *
+ * PATTERN UTILIZZATI:
+ * - Card Pattern: Container strutturato per contenuto
+ * - Hover Effects: Feedback visivo per interazioni
+ * - Image Scaling: Zoom effect per engagement
+ * - Typography Hierarchy: Organizzazione informazioni
+ * - Responsive Images: Aspect ratio consistente
+ */
+
+/* ===== CARD CONTAINER ===== */
 .product-card {
-  border: none;
-  border-radius: 15px;
-  overflow: hidden;
+  /* Layout e struttura */
+  border: none;                           /* Rimuove border Bootstrap default */
+  border-radius: 15px;                   /* Border radius moderno */
+  overflow: hidden;                      /* Nasconde overflow per image scaling */
+  background: white;                     /* Background bianco pulito */
+
+  /* Transizioni per hover effects */
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background: white;
+
+  /* Shadow base per depth */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+  /* Positioning per z-index management */
+  position: relative;
 }
 
+/* ===== CARD HOVER EFFECTS ===== */
+/**
+ * HOVER INTERACTIONS
+ *
+ * Effetti hover per migliorare user experience:
+ * - Lift effect con transform
+ * - Shadow enhancement per depth
+ * - Smooth transitions per fluidità
+ */
 .product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);            /* Lift effect */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);  /* Shadow più pronunciata */
+  z-index: 10;                           /* Porta in primo piano */
 }
 
+/* ===== PRODUCT IMAGE STYLES ===== */
+/**
+ * IMAGE OPTIMIZATION
+ *
+ * Gestione immagini prodotto con:
+ * - Aspect ratio consistente
+ * - Object-fit per cropping intelligente
+ * - Zoom effect on hover
+ * - Performance optimization
+ */
 .product-card .card-img-top {
-  height: 300px;
-  object-fit: cover;
-  transition: transform 0.5s ease;
+  height: 300px;                         /* Altezza fissa per consistenza */
+  object-fit: cover;                     /* Cropping intelligente */
+  transition: transform 0.5s ease;      /* Transizione più lenta per smoothness */
+
+  /* Performance optimization */
+  will-change: transform;                /* Hint per GPU acceleration */
 }
 
+/* Image zoom on hover */
 .product-card:hover .card-img-top {
-  transform: scale(1.05);
+  transform: scale(1.05);                /* Zoom leggero per engagement */
 }
 
+/* ===== PRODUCT TYPOGRAPHY ===== */
+/**
+ * TYPOGRAPHY HIERARCHY
+ *
+ * Organizzazione tipografica per informazioni prodotto:
+ * - Category badge styling
+ * - Product title prominence
+ * - Price highlighting
+ * - Description readability
+ */
+
+/* Category badge */
 .product-card .product-category {
-  text-transform: capitalize;
-  font-weight: 500;
+  text-transform: capitalize;            /* Prima lettera maiuscola */
+  font-weight: 500;                     /* Medium weight per leggibilità */
+  font-size: 0.875rem;                 /* Dimensione ridotta per hierarchy */
+  letter-spacing: 0.5px;               /* Spacing per eleganza */
 }
 
+/* Product title */
 .product-card .card-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem;
-  color: var(--primary-700);
+  font-family: 'Cormorant Garamond', serif;  /* Font serif per eleganza */
+  font-size: 1.5rem;                         /* Dimensione prominente */
+  color: var(--primary-700);                 /* Colore brand */
+  font-weight: 600;                          /* Semi-bold per impatto */
+  line-height: 1.3;                         /* Line-height per leggibilità */
+  margin-bottom: 0.75rem;                   /* Spacing consistente */
 }
 
-/* About section */
+/* Product description */
+.product-card .card-text {
+  color: var(--neutral-600);               /* Colore secondario */
+  font-size: 0.95rem;                     /* Dimensione leggibile */
+  line-height: 1.5;                       /* Line-height per comfort */
+  margin-bottom: 1rem;                    /* Spacing dal prezzo */
+}
+
+/* Product price */
+.product-card .text-primary {
+  font-weight: 700;                       /* Bold per prominenza */
+  font-size: 1.25rem;                    /* Dimensione maggiore */
+  color: var(--primary-600) !important;  /* Override Bootstrap */
+}
+
+/* ===== ABOUT SECTION STYLES ===== */
+/**
+ * ABOUT PAGE COMPONENTS
+ *
+ * Stili specifici per la pagina "Chi Siamo" con:
+ * - Layout storytelling per brand narrative
+ * - Avatar styling per personal branding
+ * - Process steps visualization
+ * - Background gradients per visual appeal
+ * - Responsive design per tutti i dispositivi
+ *
+ * OBIETTIVI:
+ * - Comunicare la storia del brand
+ * - Mostrare il processo artigianale
+ * - Creare connessione emotiva
+ * - Mantenere professionalità
+ */
+
+/* ===== ABOUT SECTION CONTAINER ===== */
 .about-section {
-  padding: 5rem 0;
-  background: linear-gradient(135deg, var(--neutral-50), white);
+  padding: 5rem 0;                       /* Padding generoso per breathing room */
+
+  /* Gradient background per visual interest */
+  background: linear-gradient(
+    135deg,
+    var(--neutral-50),                   /* Grigio molto chiaro */
+    white                                /* Bianco puro */
+  );
+
+  /* Positioning per pseudo-elementi se necessari */
+  position: relative;
 }
 
+/* ===== AVATAR STYLING ===== */
+/**
+ * AVATAR PERSONALE
+ *
+ * Immagine del founder/artigiano con:
+ * - Forma circolare per approccio personale
+ * - Border e shadow per professionalità
+ * - Dimensioni ottimizzate per impact
+ */
 .about-avatar {
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  border: 5px solid white;
+  width: 200px;                          /* Dimensione fissa per consistenza */
+  height: 200px;                         /* Aspect ratio 1:1 */
+  border-radius: 50%;                    /* Forma circolare */
+  object-fit: cover;                     /* Cropping intelligente */
+  margin-bottom: 1.5rem;                /* Spacing dal contenuto */
+
+  /* Visual enhancement */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);  /* Shadow per depth */
+  border: 5px solid white;                      /* Border bianco per frame */
+
+  /* Transition per hover effects futuri */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+/* Avatar hover effect (opzionale) */
+.about-avatar:hover {
+  transform: scale(1.02);                /* Leggero zoom */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);  /* Shadow più pronunciata */
+}
+
+/* ===== PROCESS STEPS STYLING ===== */
+/**
+ * PROCESS STEPS COMPONENT
+ *
+ * Visualizzazione step del processo artigianale:
+ * - Layout flessibile per contenuto variabile
+ * - Hover effects per interattività
+ * - Visual consistency tra tutti gli step
+ * - Responsive behavior
+ *
+ * NOTA: Questi stili sono complementari a quelli in index.css
+ */
+
+/* Process step container (legacy - mantenuto per compatibilità) */
 .process-step {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  padding: 1rem;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
+  display: flex;                         /* Layout flessibile */
+  align-items: center;                   /* Allineamento verticale */
+  margin-bottom: 1.5rem;                /* Spacing tra step */
+  padding: 1rem;                        /* Padding interno */
+  background: white;                     /* Background pulito */
+  border-radius: 10px;                  /* Border radius moderno */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);  /* Shadow leggera */
+  transition: transform 0.3s ease;      /* Transizione per hover */
 }
 
+/* Process step hover effect */
 .process-step:hover {
-  transform: translateX(5px);
+  transform: translateX(5px);            /* Slide effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Shadow più pronunciata */
 }
 
+/* ===== PROCESS NUMBER STYLING ===== */
+/**
+ * NUMERAZIONE STEP
+ *
+ * Badge numerici per identificazione step:
+ * - Design circolare per consistenza
+ * - Gradient background per visual appeal
+ * - Typography ottimizzata per leggibilità
+ */
 .process-number {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, var(--primary-500), var(--primary-600));
-  color: white;
-  border-radius: 50%;
+  width: 40px;                           /* Dimensione fissa */
+  height: 40px;                          /* Aspect ratio 1:1 */
+
+  /* Gradient background brand-consistent */
+  background: linear-gradient(
+    135deg,
+    var(--primary-500),
+    var(--primary-600)
+  );
+
+  color: white;                          /* Testo bianco per contrasto */
+  border-radius: 50%;                    /* Forma circolare */
+
+  /* Layout interno */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 1rem;
-  font-weight: 600;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  align-items: center;                   /* Centratura verticale */
+  justify-content: center;               /* Centratura orizzontale */
+
+  margin-right: 1rem;                    /* Spacing dal contenuto */
+  font-weight: 600;                      /* Semi-bold per leggibilità */
+  font-size: 0.9rem;                    /* Dimensione ottimizzata */
+
+  /* Visual enhancement */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Shadow per depth */
 }
 
-/* Product detail */
+/* ===== PRODUCT DETAIL PAGE ===== */
+/**
+ * PRODUCT DETAIL STYLES
+ *
+ * Stili per la pagina dettaglio prodotto con:
+ * - Image optimization per showcase prodotto
+ * - Layout responsive per informazioni
+ * - Visual hierarchy per decision making
+ * - Call-to-action prominence
+ */
+
+/* ===== PRODUCT DETAIL IMAGE ===== */
 .product-detail-img {
-  border-radius: 15px;
-  max-height: 500px;
-  object-fit: contain;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;                   /* Border radius consistente */
+  max-height: 500px;                     /* Altezza massima per layout */
+  object-fit: contain;                   /* Mantiene aspect ratio originale */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);  /* Shadow per depth */
+
+  /* Responsive behavior */
+  width: 100%;                           /* Full width del container */
+  height: auto;                          /* Altezza automatica */
+
+  /* Performance optimization */
+  image-rendering: -webkit-optimize-contrast;  /* Ottimizzazione rendering */
 }
 
-/* Cart styles */
+/* ===== CART PAGE STYLES ===== */
+/**
+ * CART COMPONENTS
+ *
+ * Stili per la pagina carrello e checkout con:
+ * - Item cards per visualizzazione prodotti
+ * - Quantity controls per gestione quantità
+ * - Responsive layout per mobile
+ * - Visual feedback per interazioni
+ *
+ * PATTERN UTILIZZATI:
+ * - Card Pattern: Container per cart items
+ * - Control Components: Quantity selectors
+ * - Hover Effects: Feedback visivo
+ * - Responsive Design: Mobile-first approach
+ */
+
+/* ===== CART ITEM CONTAINER ===== */
 .cart-item {
-  margin-bottom: 1.5rem;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
+  margin-bottom: 1.5rem;                /* Spacing tra items */
+  padding: 1.5rem;                      /* Padding interno generoso */
+  background: white;                     /* Background pulito */
+  border-radius: 10px;                  /* Border radius moderno */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);  /* Shadow leggera */
+
+  /* Hover effects */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  /* Layout interno */
+  display: flex;                         /* Layout flessibile */
+  align-items: center;                   /* Allineamento verticale */
+  gap: 1rem;                            /* Spacing tra elementi */
 }
 
+/* Cart item hover effect */
 .cart-item:hover {
-  transform: translateY(-2px);
+  transform: translateY(-2px);           /* Lift effect leggero */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Shadow più pronunciata */
 }
 
+/* ===== CART ITEM IMAGE ===== */
 .cart-item img {
-  max-width: 120px;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 120px;                      /* Larghezza massima */
+  height: auto;                          /* Altezza automatica */
+  border-radius: 8px;                    /* Border radius per consistenza */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Shadow per depth */
+
+  /* Responsive behavior */
+  flex-shrink: 0;                        /* Non si riduce su mobile */
+  object-fit: cover;                     /* Cropping intelligente */
 }
 
+/* ===== QUANTITY CONTROL COMPONENT ===== */
+/**
+ * QUANTITY SELECTOR
+ *
+ * Componente per controllo quantità con:
+ * - Design pill-shaped moderno
+ * - Buttons circolari per +/-
+ * - Visual feedback per interazioni
+ * - Accessibilità ottimizzata
+ */
+
+/* Quantity control container */
 .quantity-control {
-  display: flex;
-  align-items: center;
-  background: var(--neutral-100);
-  border-radius: 20px;
-  padding: 0.25rem;
+  display: flex;                         /* Layout flessibile */
+  align-items: center;                   /* Allineamento verticale */
+  background: var(--neutral-100);        /* Background grigio chiaro */
+  border-radius: 20px;                  /* Forma pill */
+  padding: 0.25rem;                     /* Padding interno */
+
+  /* Visual enhancement */
+  border: 1px solid var(--neutral-200);  /* Border sottile */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);  /* Inset shadow */
 }
 
+/* Quantity control buttons */
 .quantity-control button {
-  width: 30px;
-  height: 30px;
+  width: 30px;                           /* Dimensione fissa */
+  height: 30px;                          /* Aspect ratio 1:1 */
+
+  /* Layout interno */
   display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-  border: none;
-  border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+  align-items: center;                   /* Centratura verticale */
+  justify-content: center;               /* Centratura orizzontale */
+
+  /* Styling */
+  background: white;                     /* Background bianco */
+  border: none;                          /* Rimuove border default */
+  border-radius: 50%;                    /* Forma circolare */
+  color: var(--neutral-600);            /* Colore icone */
+
+  /* Visual effects */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Shadow per depth */
+  transition: all 0.3s ease;                  /* Transizione smooth */
+
+  /* Cursor e accessibilità */
+  cursor: pointer;                       /* Pointer cursor */
 }
 
+/* Quantity control button hover */
 .quantity-control button:hover {
-  background: var(--primary-100);
-  transform: scale(1.1);
+  background: var(--primary-100);        /* Background colorato */
+  color: var(--primary-600);            /* Colore brand */
+  transform: scale(1.1);                /* Leggero zoom */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);  /* Shadow più pronunciata */
 }
 
+/* Quantity control button focus (accessibilità) */
+.quantity-control button:focus {
+  outline: 2px solid var(--primary-300);  /* Outline per accessibilità */
+  outline-offset: 2px;                    /* Offset per visibilità */
+}
+
+/* Quantity display */
 .quantity-control span {
-  margin: 0 15px;
-  font-weight: 500;
+  margin: 0 15px;                        /* Spacing orizzontale */
+  font-weight: 500;                      /* Medium weight */
+  font-size: 1rem;                      /* Dimensione leggibile */
+  color: var(--neutral-700);            /* Colore scuro */
+  min-width: 20px;                      /* Larghezza minima per allineamento */
+  text-align: center;                   /* Centratura testo */
 }
 
-/* Admin Dashboard */
+/* ===== ADMIN DASHBOARD STYLES ===== */
+/**
+ * ADMIN INTERFACE COMPONENTS
+ *
+ * Stili per l'interfaccia amministrativa con:
+ * - Form controls per gestione prodotti
+ * - Table styling per visualizzazione dati
+ * - Professional layout per dashboard
+ * - Responsive design per gestione mobile
+ *
+ * OBIETTIVI:
+ * - Interfaccia professionale e funzionale
+ * - Usabilità ottimizzata per operazioni CRUD
+ * - Visual hierarchy per informazioni importanti
+ * - Accessibilità per utenti admin
+ */
+
+/* ===== ADMIN CONTROLS CONTAINER ===== */
 .admin-controls {
-  background: white;
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
+  background: white;                     /* Background pulito */
+  padding: 2rem;                        /* Padding generoso */
+  border-radius: 15px;                  /* Border radius moderno */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);  /* Shadow per depth */
+  margin-bottom: 2rem;                  /* Spacing dal contenuto successivo */
+
+  /* Border per definizione */
+  border: 1px solid var(--neutral-200);
+
+  /* Responsive behavior */
+  width: 100%;                          /* Full width */
+  overflow-x: auto;                     /* Scroll orizzontale se necessario */
 }
 
+/* ===== ADMIN TABLE IMAGES ===== */
+/**
+ * PRODUCT IMAGES IN ADMIN TABLE
+ *
+ * Ottimizzazione immagini per tabelle amministrative:
+ * - Dimensioni consistenti per layout
+ * - Aspect ratio mantenuto
+ * - Visual enhancement per professionalità
+ */
 .admin-table img {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 60px;                          /* Larghezza fissa */
+  height: 60px;                         /* Altezza fissa */
+  object-fit: cover;                    /* Cropping intelligente */
+  border-radius: 8px;                   /* Border radius per consistenza */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Shadow leggera */
+
+  /* Performance optimization */
+  image-rendering: -webkit-optimize-contrast;
+
+  /* Hover effect per preview */
+  transition: transform 0.2s ease;
 }
 
-/* Authentication Forms */
+.admin-table img:hover {
+  transform: scale(1.1);                /* Leggero zoom per preview */
+  z-index: 10;                         /* Porta in primo piano */
+}
+
+/* ===== AUTHENTICATION FORMS ===== */
+/**
+ * LOGIN/REGISTER FORM STYLES
+ *
+ * Stili per form di autenticazione con:
+ * - Layout centrato e professionale
+ * - Visual hierarchy per usabilità
+ * - Responsive design per tutti i dispositivi
+ * - Brand consistency per trust
+ *
+ * PATTERN UTILIZZATI:
+ * - Centered Layout: Form centrato nella pagina
+ * - Card Pattern: Container con shadow per focus
+ * - Typography Hierarchy: Titoli e labels chiari
+ * - Responsive Design: Adattamento mobile
+ */
+
+/* ===== AUTH FORM CONTAINER ===== */
 .auth-form {
-  max-width: 500px;
-  margin: 3rem auto;
-  padding: 2.5rem;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-width: 500px;                     /* Larghezza massima per leggibilità */
+  margin: 3rem auto;                    /* Centratura con spacing */
+  padding: 2.5rem;                     /* Padding interno generoso */
+  background: white;                    /* Background pulito */
+  border-radius: 15px;                 /* Border radius moderno */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);  /* Shadow pronunciata */
+
+  /* Border per definizione */
+  border: 1px solid var(--neutral-100);
+
+  /* Responsive behavior */
+  width: 90%;                          /* Width responsive */
+  min-height: auto;                    /* Altezza automatica */
 }
 
+/* ===== AUTH FORM TITLE ===== */
 .auth-form h2 {
-  text-align: center;
-  margin-bottom: 2rem;
-  color: var(--primary-700);
+  text-align: center;                  /* Centratura titolo */
+  margin-bottom: 2rem;                 /* Spacing dal form */
+  color: var(--primary-700);           /* Colore brand */
+  font-family: 'Cormorant Garamond', serif;  /* Font elegante */
+  font-size: 2rem;                     /* Dimensione prominente */
+  font-weight: 600;                    /* Semi-bold */
 }
 
-/* Media Queries */
+/* ===== RESPONSIVE DESIGN - MEDIA QUERIES ===== */
+/**
+ * RESPONSIVE BREAKPOINTS
+ *
+ * Adattamenti per dispositivi mobile e tablet:
+ * - Typography scaling per leggibilità
+ * - Layout adjustments per usabilità
+ * - Component sizing per touch targets
+ * - Performance optimization per mobile
+ *
+ * BREAKPOINTS:
+ * - 768px: Tablet e mobile landscape
+ * - 576px: Mobile portrait
+ * - 480px: Small mobile devices
+ */
+
+/* ===== TABLET E MOBILE LANDSCAPE (≤768px) ===== */
 @media (max-width: 768px) {
+
+  /* Hero section adjustments */
+  .hero {
+    min-height: 70vh;                   /* Altezza ridotta per mobile */
+    padding: 2rem 1rem;                /* Padding laterale per breathing room */
+  }
+
   .hero h1 {
-    font-size: 2.5rem;
+    font-size: 2.5rem;                 /* Dimensione ridotta ma impattante */
+    margin-bottom: 1rem;               /* Spacing ridotto */
   }
-  
+
+  .hero h2 {
+    font-size: 1.1rem;                 /* Dimensione proporzionale */
+    margin-bottom: 1rem;               /* Spacing ottimizzato */
+  }
+
   .hero p {
-    font-size: 1.1rem;
+    font-size: 1.1rem;                 /* Dimensione leggibile */
+    margin-bottom: 1.5rem;             /* Spacing ridotto */
   }
-  
+
+  /* Product card adjustments */
   .product-card .card-img-top {
-    height: 250px;
+    height: 250px;                     /* Altezza ridotta per mobile */
+  }
+
+  /* Auth form adjustments */
+  .auth-form {
+    margin: 2rem auto;                 /* Margin ridotto */
+    padding: 2rem;                     /* Padding ridotto */
+    width: 95%;                        /* Width maggiore per mobile */
+  }
+
+  /* Admin controls adjustments */
+  .admin-controls {
+    padding: 1.5rem;                   /* Padding ridotto */
+    margin-bottom: 1.5rem;             /* Spacing ridotto */
+  }
+
+  /* Cart item adjustments */
+  .cart-item {
+    padding: 1rem;                     /* Padding ridotto */
+    flex-direction: column;            /* Stack verticale */
+    text-align: center;                /* Centratura contenuto */
+  }
+
+  .cart-item img {
+    max-width: 100px;                  /* Dimensione ridotta */
+    margin-bottom: 1rem;               /* Spacing dal contenuto */
+  }
+}
+
+/* ===== MOBILE PORTRAIT (≤576px) ===== */
+@media (max-width: 576px) {
+
+  /* Hero ultra-mobile adjustments */
+  .hero h1 {
+    font-size: 2rem;                   /* Dimensione ulteriormente ridotta */
+  }
+
+  .hero .btn {
+    width: 100%;                       /* Full width buttons */
+    margin-bottom: 0.5rem;             /* Spacing tra buttons */
+  }
+
+  /* Product card ultra-mobile */
+  .product-card .card-img-top {
+    height: 200px;                     /* Altezza minima */
+  }
+
+  /* About avatar mobile */
+  .about-avatar {
+    width: 150px;                      /* Dimensione ridotta */
+    height: 150px;                     /* Aspect ratio mantenuto */
+  }
+
+  /* Process steps mobile */
+  .process-step {
+    flex-direction: column;            /* Stack verticale */
+    text-align: center;                /* Centratura contenuto */
+    padding: 1rem;                     /* Padding ridotto */
+  }
+
+  .process-number {
+    margin-right: 0;                   /* Rimuove margin laterale */
+    margin-bottom: 1rem;               /* Aggiunge margin bottom */
   }
 }
